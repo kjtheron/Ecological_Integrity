@@ -1,4 +1,4 @@
-// Link to the Google Earth Engine Code: https://code.earthengine.google.com/4855a082150ed26c8197c30fddadd60e
+// Link to the Google Earth Engine Code: https://code.earthengine.google.com/79a6283d1eef69cda1b8a19d88fc4df0?noload=true
 
 // Define function to get and rename bands of interest from OLI
 function renameOLI(img) {
@@ -42,11 +42,11 @@ var colFilter = ee.Filter.and(
 var Lansat8 = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
     .filterDate('2017-01-01', '2020-03-31').filter(colFilter).map(prepOli);
 
-// Save maximum NBR
-var quality = Lansat8.qualityMosaic('NBR');
+// Save min NBR
+var quality = Lansat8.min();
 Export.image.toDrive({
   image: quality,
-  description: "Max_NBR_2017_2020",
+  description: "Min_NBR_2017_2020",
   region: AOI,
   fileFormat: 'GeoTIFF',
   scale: 30,
