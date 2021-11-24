@@ -391,18 +391,18 @@ writeRaster(Cor_Width,filename="Products/Raster_Products/Cor_Width.tif",format="
 rm(Estate_1,Estate_2,Estate_3,Estate_4,Ranger_map_Estate1,Ranger_map_Estate2,Ranger_map_Estate3,Ranger_map_Estate4,Ranger_map,Cor_Width)
 
 # Load environmental raster data
-Env<-load_var(path="~/.../Products/Raster_Products/",
+Env<-load_var(path="~//Products/Raster_Products/",
               files=c("Sent_NDVI.tif","Map_ranger.tif","Drain_Dist.tif","SUDEM_Aspect.tif","Cor_Width.tif","Max_NBR.tif"),
               format=".tif",Norm=TRUE,categorical=c("Map_ranger.tif"))
 
 # Load occurrence data
-Occ<-load_occ(path="~/.../Products/Excel_Sheets_Products",
+Occ<-load_occ(path="~//Products/Excel_Sheets_Products",
               Env=Env,file="Occurrence_Data.csv",Xcol="Long_X",Ycol="Lat_Y",Spcol="Species",sep=",")
 
 # Perform stacked species distribution models
 SSDM<-stack_modelling(algorithms=c("RF","SVM"),Occurrences=Occ,Env=Env,cores=4,method="pSSDM",
                       Xcol="Long_X",Ycol="Lat_Y",Spcol="Species",tmp=TRUE,rep=10,metric="Kappa",
-                      save=TRUE,name="SSDM",path="~/.../Products/",
+                      save=TRUE,name="SSDM",path="~//Products/",
                       cv="holdout",cv.param=c(0.7,1),ensemble.metric=c("AUC"),ensemble.thresh=c(0.7))
 
 # Variable importance 
@@ -462,13 +462,13 @@ ggplot(data=correlation,mapping=aes(x=X,y=Variable,fill=Correlation)) +
 rm(correlation,Occ)
 
 # Load occurrence data Low
-Occ_Low<-load_occ(path="~/.../Products/Excel_Sheets_Products",
+Occ_Low<-load_occ(path="~//Products/Excel_Sheets_Products",
                   Env=Env,file="Occurrence_Low_Data.csv",Xcol="Long_X",Ycol="Lat_Y",Spcol="Species",sep=",")
 
 # Perform stacked species distribution models
 SSDM_Low<-stack_modelling(algorithms=c("RF","SVM"),Occurrences=Occ_Low,Env=Env,cores=4,method="pSSDM",
                           Xcol="Long_X",Ycol="Lat_Y",Spcol="Species",tmp=TRUE,rep=10,metric="Kappa",
-                          save=TRUE,name="SSDM_Low",path="~/.../Products/",
+                          save=TRUE,name="SSDM_Low",path="~//Products/",
                           cv="holdout",cv.param=c(0.7,1),ensemble.metric=c("AUC"),ensemble.thresh=c(0.7))
 
 # Variable importance 
@@ -528,13 +528,13 @@ ggplot(data=correlation,mapping=aes(x=X,y=Variable,fill=Correlation)) +
 rm(correlation,Occ_Low,SSDM_Low)
 
 # Load occurrence data Intermediate
-Occ_Intermediate<-load_occ(path="~/.../Products/Excel_Sheets_Products",
+Occ_Intermediate<-load_occ(path="~//Products/Excel_Sheets_Products",
                            Env=Env,file="Occurrence_Intermediate_Data.csv",Xcol="Long_X",Ycol="Lat_Y",Spcol="Species",sep=",")
 
 # Perform stacked species distribution models
 SSDM_Intermediate<-stack_modelling(algorithms=c("RF","SVM"),Occurrences=Occ_Intermediate,Env=Env,cores=4,method="pSSDM",
                                    Xcol="Long_X",Ycol="Lat_Y",Spcol="Species",tmp=TRUE,rep=10,metric="Kappa",
-                                   save=TRUE,name="SSDM_Intermediate",path="~/.../Products/",
+                                   save=TRUE,name="SSDM_Intermediate",path="~//Products/",
                                    cv="holdout",cv.param=c(0.7,1),ensemble.metric=c("AUC"),ensemble.thresh=c(0.7))
 
 # Variable importance 
@@ -594,14 +594,14 @@ ggplot(data=correlation,mapping=aes(x=X,y=Variable,fill=Correlation)) +
 rm(correlation,Occ_Intermediate,SSDM_Intermediate)
 
 # Load occurrence data High
-Occ_High<-load_occ(path="~/.../Products/Excel_Sheets_Products",
+Occ_High<-load_occ(path="~//Products/Excel_Sheets_Products",
                    Env=Env,file="Occurrence_High_Data.csv",Xcol="Long_X",Ycol="Lat_Y",Spcol="Species",sep=",")
 
 
 # Perform stacked species distribution models
 SSDM_High<-stack_modelling(algorithms=c("RF","SVM"),Occurrences=Occ_High,Env=Env,cores=4,method="pSSDM",
                            Xcol="Long_X",Ycol="Lat_Y",Spcol="Species",tmp=TRUE,rep=10,metric="Kappa",
-                           save=TRUE,name="SSDM_High",path="~/.../Products/",
+                           save=TRUE,name="SSDM_High",path="~//Products/",
                            cv="holdout",cv.param=c(0.7,1),ensemble.metric=c("AUC"),ensemble.thresh=c(0.7))
 
 # Variable importance 
@@ -742,7 +742,7 @@ Vector_Focal_Areas_features_High_50<-Vector_Focal_Areas_features_High %>%
   filter(Area_sqm>=5000) #_50_pixel region
 
 # Save to aci file for Circuitscape
-write.dir<-"~/.../Circuitscape/"
+write.dir<-"~//Circuitscape/"
 rst_template<-raster(crs=projection(Diversity_map),ext=extent(Diversity_map),resolution=20)
 Focal_Areas_100<-rasterize(Vector_Focal_Areas_features_100,rst_template)
 Focal_Areas_50<-rasterize(Vector_Focal_Areas_features_50,rst_template)
@@ -1404,6 +1404,103 @@ rm(Diversity_map_Estate_1,Diversity_map_Estate_1_cs,Focal_Areas_Estate_1,Overall
    Diversity_map_Estate_4_Low,Diversity_map_Estate_4_Low_cs,Focal_Areas_Estate_4_Low,Overall_Estate_4_Low,Overall_Estate_4_Low_Density,
    Overall_Density,Overall_Density_High,Overall_Density_Intermediate,Overall_Density_Low,ras_temp_Estate1,ras_temp_Estate2,ras_temp_Estate3,ras_temp_Estate4)
 
+############### Identify corridor features ###############
+# Load least cost networks
+Overall_Density<-raster("Products/Raster_Products/Overall_Density.tif")
+Overall_Density_High<-raster("Products/Raster_Products/Overall_Density_High.tif")
+Overall_Density_Intermediate<-raster("Products/Raster_Products/Overall_Density_Intermediate.tif")
+Overall_Density_Low<-raster("Products/Raster_Products/Overall_Density_Low.tif")
+
+# Convert to points
+Points_Overall_Density<-raster::rasterToPoints(Overall_Density,fun=function(x){x>1})
+Lable_Overall_Density<-Points_Overall_Density[,-1]
+Lable_Overall_Density<-Lable_Overall_Density[,-1]
+Points_Overall_Density<-Points_Overall_Density[,-3]
+Points_Overall_Density_High<-raster::rasterToPoints(Overall_Density_High,fun=function(x){x>1})
+Lable_Overall_Density_High<-Points_Overall_Density_High[,-1]
+Lable_Overall_Density_High<-Lable_Overall_Density_High[,-1]
+Points_Overall_Density_High<-Points_Overall_Density_High[,-3]
+Points_Overall_Density_Intermediate<-raster::rasterToPoints(Overall_Density_Intermediate,fun=function(x){x>1})
+Lable_Overall_Density_Intermediate<-Points_Overall_Density_Intermediate[,-1]
+Lable_Overall_Density_Intermediate<-Lable_Overall_Density_Intermediate[,-1]
+Points_Overall_Density_Intermediate<-Points_Overall_Density_Intermediate[,-3]
+Points_Overall_Density_Low<-raster::rasterToPoints(Overall_Density_Low,fun=function(x){x>1})
+Lable_Overall_Density_Low<-Points_Overall_Density_Low[,-1]
+Lable_Overall_Density_Low<-Lable_Overall_Density_Low[,-1]
+Points_Overall_Density_Low<-Points_Overall_Density_Low[,-3]
+rm(Overall_Density,Overall_Density_High,Overall_Density_Intermediate,Overall_Density_Low)
+
+# Stack raster features
+NDVI<-raster("Products/Raster_Products/Sent_NDVI.tif")
+Cor_Width<-raster("Products/Raster_Products/Cor_Width.tif")
+Max_NBR<-raster("Products/Raster_Products/Max_NBR.tif")
+Aspect<-raster("Products/Raster_Products/SUDEM_Aspect.tif")
+Drain_Dist<-raster("Products/Raster_Products/Drain_Dist.tif")
+Elv<-raster("Products/Raster_Products/SUDEM.tif")
+Env<-stack(NDVI,Max_NBR,Cor_Width,Aspect,Elv,Drain_Dist)
+rm(NDVI,Cor_Width,Max_NBR,Aspect,Drain_Dist,Elv)
+
+#Extract landscape features over corridors
+Cor_Features_Overall_Density<-raster::extract(Env,Points_Overall_Density)
+Cor_Features_Overall_Density<-as.data.frame(cbind(Lable_Overall_Density,Cor_Features_Overall_Density))
+Cor_Features_Overall_Density_High<-raster::extract(Env,Points_Overall_Density_High)
+Cor_Features_Overall_Density_High<-as.data.frame(cbind(Lable_Overall_Density_High,Cor_Features_Overall_Density_High))
+Cor_Features_Overall_Density_Intermediate<-raster::extract(Env,Points_Overall_Density_Intermediate)
+Cor_Features_Overall_Density_Intermediate<-as.data.frame(cbind(Lable_Overall_Density_Intermediate,Cor_Features_Overall_Density_Intermediate))
+Cor_Features_Overall_Density_Low<-raster::extract(Env,Points_Overall_Density_Low)
+Cor_Features_Overall_Density_Low<-as.data.frame(cbind(Lable_Overall_Density_Low,Cor_Features_Overall_Density_Low))
+rm(Points_Overall_Density,Lable_Overall_Density,Points_Overall_Density_High,Lable_Overall_Density_High,
+   Points_Overall_Density_Intermediate,Lable_Overall_Density_Intermediate,Points_Overall_Density_Low,
+   Lable_Overall_Density_Low,Env)
+
+# Identify average value of landscape features within corridors
+Cor_Features_Overall_Density<-aggregate(Cor_Features_Overall_Density[,2:7],
+                list(Cor_Features_Overall_Density$Lable_Overall_Density),mean)
+Cor_Features_Overall_Density_High<-aggregate(Cor_Features_Overall_Density_High[,2:7],
+                                             list(Cor_Features_Overall_Density_High$Lable_Overall_Density_High),mean)
+Cor_Features_Overall_Density_Intermediate<-aggregate(Cor_Features_Overall_Density_Intermediate[,2:7],
+                                                  list(Cor_Features_Overall_Density_Intermediate$Lable_Overall_Density_Intermediate),mean)
+Cor_Features_Overall_Density_Low<-aggregate(Cor_Features_Overall_Density_Low[,2:7],
+                                                          list(Cor_Features_Overall_Density_Low$Lable_Overall_Density_Low),mean)
+
+# Select the top and bottom 5 corridors
+Cor_Features_Overall_Density<-Cor_Features_Overall_Density[order(-Cor_Features_Overall_Density$Group.1),]
+top_Overall<-Cor_Features_Overall_Density[1:5,]
+top_Overall$Group.1<-"Top"
+bot_Overall<-Cor_Features_Overall_Density[586:590,]
+bot_Overall$Group.1<-"Bot"
+Cor_Features_Overall_Density<-as.data.frame(rbind(top_Overall,bot_Overall))
+Cor_Features_Overall_Density$Grasshopper<-"Overall"
+Cor_Features_Overall_Density_High<-Cor_Features_Overall_Density_High[order(-Cor_Features_Overall_Density_High$Group.1),]
+top_Overall<-Cor_Features_Overall_Density_High[1:5,]
+top_Overall$Group.1<-"Top"
+bot_Overall<-Cor_Features_Overall_Density_High[359:363,]
+bot_Overall$Group.1<-"Bot"
+Cor_Features_Overall_Density_High<-as.data.frame(rbind(top_Overall,bot_Overall))
+Cor_Features_Overall_Density_High$Grasshopper<-"High"
+Cor_Features_Overall_Density_Intermediate<-Cor_Features_Overall_Density_Intermediate[order(-Cor_Features_Overall_Density_Intermediate$Group.1),]
+top_Overall<-Cor_Features_Overall_Density_Intermediate[1:5,]
+top_Overall$Group.1<-"Top"
+bot_Overall<-Cor_Features_Overall_Density_Intermediate[731:735,]
+bot_Overall$Group.1<-"Bot"
+Cor_Features_Overall_Density_Intermediate<-as.data.frame(rbind(top_Overall,bot_Overall))
+Cor_Features_Overall_Density_Intermediate$Grasshopper<-"Intermediate"
+Cor_Features_Overall_Density_Low<-Cor_Features_Overall_Density_Low[order(-Cor_Features_Overall_Density_Low$Group.1),]
+top_Overall<-Cor_Features_Overall_Density_Low[1:5,]
+top_Overall$Group.1<-"Top"
+bot_Overall<-Cor_Features_Overall_Density_Low[654:658,]
+bot_Overall$Group.1<-"Bot"
+Cor_Features_Overall_Density_Low<-as.data.frame(rbind(top_Overall,bot_Overall))
+Cor_Features_Overall_Density_Low$Grasshopper<-"Low"
+rm(top_Overall,bot_Overall)
+
+# Merge
+All<-as.data.frame(rbind(Cor_Features_Overall_Density,Cor_Features_Overall_Density_High,
+                         Cor_Features_Overall_Density_Intermediate,Cor_Features_Overall_Density_Low))
+write.csv(All,"Products/All.csv",row.names=FALSE)
+rm(All,Cor_Features_Overall_Density,Cor_Features_Overall_Density_High,
+   Cor_Features_Overall_Density_Intermediate,Cor_Features_Overall_Density_Low)
+
 ############### Identify restoration areas ###############
 # Load least cost networks
 Overall_Density<-raster("Products/Raster_Products/Overall_Density.tif")
@@ -1495,6 +1592,7 @@ rm(Overall_Density_Point,Overall_Density_High_Point,Overall_Density_Intermediate
    Overall_Density,Overall_Density_High,Overall_Density_Intermediate,Overall_Density_Low)
 
 ############### Turnover vs nestedness ###############
+'''
 # Load biological data and subset per plantation farm
 Bio<-read.csv("Excel_Sheets/Caelifera_assemblage_data.csv")
 Bio<-Bio[,colSums(Bio!=0)>3]
@@ -1542,7 +1640,7 @@ Bio_core<-as.data.frame(cbind("Beta diversity"=Bio_core$beta.JAC,
 betaDiv<-as.data.frame(rbind(Estate1_core,Estate2_core,Estate3_core,Estate4_core,Bio_core))
 write.csv(betaDiv,"Products/Excel_Sheets_Products/betaDiv_Data.csv",row.names=FALSE)
 rm(Areas,betaDiv,Bio,Bio_core,Estate1,Estate1_core,Estate2,Estate2_core,Estate3,Estate3_core,Estate4,Estate4_core)
-
+'''
 ############### Drivers of turnover gdm ###############
 # Load data environmental data
 Cur_Map<-raster("Products/Raster_Products/Cur_Map.tif")
@@ -1723,6 +1821,9 @@ multispati.rtest((dudi.pca(High,scannf=FALSE)),maf.listw) #Spatial autocorrelati
 rm(provi,provi.neig,maf.listw)
 
 # Merge GPS with biological data
+Low[Low!=0]<-1
+Intermediate[Intermediate!=0]<-1
+High[High!=0]<-1
 Site_ID<-GPS$Site_ID
 GPS<-SpatialPointsDataFrame(GPS[,2:3],GPS,proj4string=CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"))
 GPS<-spTransform(GPS,CRS="+proj=utm +zone=36 +south +datum=WGS84 +units=m +no_defs")
@@ -1730,9 +1831,6 @@ Proj_Cor<-as.data.frame(GPS@coords)
 Low<-as.data.frame(cbind(Site_ID,Proj_Cor,Low))
 Intermediate<-as.data.frame(cbind(Site_ID,Proj_Cor,Intermediate))
 High<-as.data.frame(cbind(Site_ID,Proj_Cor,High))
-Low[Low!=0]<-1
-Intermediate[Intermediate!=0]<-1
-High[High!=0]<-1
 rm(GPS,Proj_Cor,Site_ID)
 
 # Load data environmental data for LOW conservation value species
@@ -1750,7 +1848,7 @@ names(Env)
 names(Env)<-c("NDVI","Aspect","Fire_Hist","Func_Conn","Land_Use","Drain_Dist","Cor_Width","Elv")
 
 # Prepare data for gdm LOW
-Data<-formatsitepair(bioData=Low,bioFormat=2,predData=Env,sppColumn="Species",dist="jaccard",
+Data<-formatsitepair(bioData=Low,bioFormat=1,predData=Env,sppColumn="Species",dist="jaccard",
                      siteColumn="Site_ID",XColumn="Long_X",YColumn="Lat_Y")
 Data<-na.omit(Data)
 
@@ -1769,7 +1867,7 @@ Env<-stack(Cor_Width,SUDEM)
 rm(Cor_Width,SUDEM)
 names(Env)
 names(Env)<-c("Cor_Width","Elv")
-Data<-formatsitepair(bioData=Low,bioFormat=2,predData=Env,sppColumn="Species",dist="jaccard",
+Data<-formatsitepair(bioData=Low,bioFormat=1,predData=Env,sppColumn="Species",dist="jaccard",
                      siteColumn="Site_ID",XColumn="Long_X",YColumn="Lat_Y")
 Data<-na.omit(Data)
 
@@ -1865,7 +1963,7 @@ names(Env)
 names(Env)<-c("NDVI","Aspect","Fire_Hist","Func_Conn","Land_Use","Drain_Dist","Cor_Width","Elv")
 
 # Prepare data for gdm Intermediate
-Data<-formatsitepair(bioData=Intermediate,bioFormat=2,predData=Env,sppColumn="Species",dist="jaccard",
+Data<-formatsitepair(bioData=Intermediate,bioFormat=1,predData=Env,sppColumn="Species",dist="jaccard",
                      siteColumn="Site_ID",XColumn="Long_X",YColumn="Lat_Y")
 Data<-na.omit(Data)
 
@@ -1881,7 +1979,7 @@ model_1_Imp[[4]]
 SUDEM<-raster("Products/Raster_Products/SUDEM.tif")
 Env<-SUDEM
 rm(SUDEM)
-Data<-formatsitepair(bioData=Intermediate,bioFormat=2,predData=Env,sppColumn="Species",dist="jaccard",
+Data<-formatsitepair(bioData=Intermediate,bioFormat=1,predData=Env,sppColumn="Species",dist="jaccard",
                      siteColumn="Site_ID",XColumn="Long_X",YColumn="Lat_Y")
 Data<-na.omit(Data)
 
@@ -1951,7 +2049,7 @@ names(Env)
 names(Env)<-c("NDVI","Aspect","Fire_Hist","Func_Conn","Land_Use","Drain_Dist","Cor_Width","Elv")
 
 # Prepare data for gdm High
-Data<-formatsitepair(bioData=High,bioFormat=2,predData=Env,sppColumn="Species",dist="jaccard",
+Data<-formatsitepair(bioData=High,bioFormat=1,predData=Env,sppColumn="Species",dist="jaccard",
                      siteColumn="Site_ID",XColumn="Long_X",YColumn="Lat_Y")
 Data<-na.omit(Data)
 
@@ -1970,7 +2068,7 @@ Env<-stack(Aspect,SUDEM)
 rm(Aspect,SUDEM)
 names(Env)
 names(Env)<-c("Aspect","Elv")
-Data<-formatsitepair(bioData=High,bioFormat=2,predData=Env,sppColumn="Species",dist="jaccard",
+Data<-formatsitepair(bioData=High,bioFormat=1,predData=Env,sppColumn="Species",dist="jaccard",
                      siteColumn="Site_ID",XColumn="Long_X",YColumn="Lat_Y")
 Data<-na.omit(Data)
 
@@ -2049,97 +2147,109 @@ plot(fit1,quantities=TRUE,
 rm(fit1,aspect_elevation_geo_dist,aspect_elevation,elevation_geo_dist,aspect_geo_dist,geo_dist,
    elevation,aspect,geo_dummy,SUDEM,Aspect,Env,High,All)
 
-
 # Plot GDM Variable importance together
 par(mar=c(3.3,3.3,1,1))
 par(oma=c(0,0,0,0))
-par(mfrow=c(7,2))
+par(mfrow=c(4,3))
+
 #OVERALL
 plot(model_1.splineDat$x[,"Cor_Width"],model_1.splineDat$y[,"Cor_Width"],ylim=c(0,1),
      lwd=2,type="l",xlab="",ylab="")
 mtext("a.1)",adj=0,line=0,cex=0.7)
 mtext("Edge distance",side=1,line=2,cex=0.7)
-mtext("Ecol dist",side=2,line=2,cex=0.7)
+mtext("Dissimilarity",side=2,line=2,cex=0.7)
 plot(model_1.splineDat$x[,"Elv"],model_1.splineDat$y[,"Elv"],ylim=c(0,1),
      lwd=2,type="l",xlab="",ylab="")
 mtext("a.2)",adj=0,line=0,cex=0.7)
 mtext("Elevation",side=1,line=2,cex=0.7)
-mtext("Ecol dist",side=2,line=2,cex=0.7)
+mtext("",side=2,line=2,cex=0.7)
 plot(model_1.splineDat$x[,"Geographic"],model_1.splineDat$y[,"Geographic"],ylim=c(0,1),
      lwd=2,type="l",xlab="",ylab="")
 mtext("a.3)",adj=0,line=0,cex=0.7)
 mtext("Geographic distance",side=1,line=2,cex=0.7)
-mtext("Ecol dist",side=2,line=2,cex=0.7)
+mtext("",side=2,line=2,cex=0.7)
+'''
 plot(x=model_1[["ecological"]],y=model_1[["observed"]],ylim=c(0,1),
      type="n",xlab="",ylab="")
 mtext("a.4)",adj=0,line=0,cex=0.7)
-mtext("Pred ecol dist",side=1,line=2,cex=0.7)
+mtext("Pred Dissimilarity",side=1,line=2,cex=0.7)
 mtext("Obs comp diss",side=2,line=2,cex=0.7)
 points(x=model_1[["ecological"]],y=model_1[["observed"]],cex=0.5,lwd=0.5,col="black")
 overlayX<-seq(from=min(model_1[["ecological"]]),to=max(model_1[["ecological"]]),length=200)
 overlayY<-1-exp(-overlayX)
 lines(overlayX,overlayY,lwd=2)
+'''
 #LOW
 plot(model_2.splineDat$x[,"Cor_Width"],model_2.splineDat$y[,"Cor_Width"],ylim=c(0,1),
      lwd=2,type="l",xlab="",ylab="")
 mtext("b.1)",adj=0,line=0,cex=0.7)
 mtext("Edge distance",side=1,line=2,cex=0.7)
-mtext("Ecol dist",side=2,line=2,cex=0.7)
+mtext("Dissimilarity",side=2,line=2,cex=0.7)
 plot(model_2.splineDat$x[,"Elv"],model_2.splineDat$y[,"Elv"],ylim=c(0,1),
      lwd=2,type="l",xlab="",ylab="")
 mtext("b.2)",adj=0,line=0,cex=0.7)
 mtext("Elevation",side=1,line=2,cex=0.7)
-mtext("Ecol dist",side=2,line=2,cex=0.7)
+mtext("",side=2,line=2,cex=0.7)
 plot(model_2.splineDat$x[,"Geographic"],model_2.splineDat$y[,"Geographic"],ylim=c(0,1),
      lwd=2,type="l",xlab="",ylab="")
 mtext("b.3)",adj=0,line=0,cex=0.7)
 mtext("Geographic distance",side=1,line=2,cex=0.7)
-mtext("Ecol dist",side=2,line=2,cex=0.7)
+mtext("",side=2,line=2,cex=0.7)
+'''
 plot(x=model_2[["ecological"]],y=model_2[["observed"]],ylim=c(0,1),
      type="n",xlab="",ylab="")
 mtext("b.4)",adj=0,line=0,cex=0.7)
-mtext("Pred ecol dist",side=1,line=2,cex=0.7)
+mtext("Pred Dissimilarity",side=1,line=2,cex=0.7)
 mtext("Obs comp diss",side=2,line=2,cex=0.7)
 points(x=model_2[["ecological"]],y=model_2[["observed"]],cex=0.5,lwd=0.5,col="black")
 overlayX<-seq(from=min(model_2[["ecological"]]),to=max(model_2[["ecological"]]),length=200)
 overlayY<-1-exp(-overlayX)
 lines(overlayX,overlayY,lwd=2)
+'''
 #INTERMEDIATE
 plot(model_3.splineDat$x[,"extract(predData, bioData$cellName)"],model_3.splineDat$y[,"extract(predData, bioData$cellName)"],ylim=c(0,1),
      lwd=2,type="l",xlab="",ylab="")
 mtext("c.1)",adj=0,line=0,cex=0.7)
 mtext("Elevation",side=1,line=2,cex=0.7)
-mtext("Ecol dist",side=2,line=2,cex=0.7)
+mtext("Dissimilarity",side=2,line=2,cex=0.7)
+plot.new()
+plot.new()
+'''
 plot(x=model_3[["ecological"]],y=model_3[["observed"]],ylim=c(0,1),
      type="n",xlab="",ylab="")
 mtext("c.2)",adj=0,line=0,cex=0.7)
-mtext("Pred ecol dist",side=1,line=2,cex=0.7)
+mtext("Pred Dissimilarity",side=1,line=2,cex=0.7)
 mtext("Obs comp diss",side=2,line=2,cex=0.7)
 points(x=model_3[["ecological"]],y=model_3[["observed"]],cex=0.5,lwd=0.5,col="black")
 overlayX<-seq(from=min(model_3[["ecological"]]),to=max(model_3[["ecological"]]),length=200)
 overlayY<-1-exp(-overlayX)
 lines(overlayX,overlayY,lwd=2)
+'''
 #HIGH
-plot(model_4.splineDat$x[,"Aspect"],model_4.splineDat$y[,"Aspect"],ylim=c(0,2),
+plot(model_4.splineDat$x[,"Aspect"],model_4.splineDat$y[,"Aspect"],ylim=c(0,2.5),
      lwd=2,type="l",xlab="",ylab="")
 mtext("d.1)",adj=0,line=0,cex=0.7)
 mtext("Aspect",side=1,line=2,cex=0.7)
-mtext("Ecol dist",side=2,line=2,cex=0.7)
-plot(model_4.splineDat$x[,"Elv"],model_4.splineDat$y[,"Elv"],ylim=c(0,2),
+mtext("Dissimilarity",side=2,line=2,cex=0.7)
+
+plot(model_4.splineDat$x[,"Elv"],model_4.splineDat$y[,"Elv"],ylim=c(0,2.5),
      lwd=2,type="l",xlab="",ylab="")
 mtext("d.2)",adj=0,line=0,cex=0.7)
 mtext("Elevation",side=1,line=2,cex=0.7)
-mtext("Ecol dist",side=2,line=2,cex=0.7)
+mtext("",side=2,line=2,cex=0.7)
+plot.new()
+'''
 plot(x=model_4[["ecological"]],y=model_4[["observed"]],ylim=c(0,1),
      type="n",xlab="",ylab="")
 mtext("d.3)",adj=0,line=0,cex=0.7)
-mtext("Pred ecol dist",side=1,line=2,cex=0.7)
+mtext("Pred Dissimilarity",side=1,line=2,cex=0.7)
 mtext("Obs comp diss",side=2,line=2,cex=0.7)
 points(x=model_4[["ecological"]],y=model_4[["observed"]],cex=0.5,lwd=0.5,col="black")
 overlayX<-seq(from=min(model_4[["ecological"]]),to=max(model_4[["ecological"]]),length=200)
 overlayY<-1-exp(-overlayX)
 lines(overlayX,overlayY,lwd=2)
-par(mar=c(5.1,4.1,4.1,2.1))
+'''
+par(mar=c(5.1,4.1,4.1,2.1)) #6x6
 rm(overlayX,overlayY,model_1,model_1.splineDat,model_2,model_2.splineDat,model_3,model_3.splineDat,model_4,model_4.splineDat)
 
 ############### Drivers of nestedness ###############
@@ -2191,23 +2301,23 @@ Low<-as.data.frame(t(Low))
 indx<-sapply(Low,is.factor)
 Low[indx]<-lapply(Low[indx],function(x) as.numeric(as.character(x)))
 Low_Richness<-rowSums(Low!=0)
-Low_exShan<-exp(diversity(Low,index="shannon"))
+Low_exShan<-exp(vegan::diversity(Low,index="shannon"))
 Intermediate<-subset(DataT,Groups=="Intermediate")
 Intermediate$Groups=NULL
 Intermediate<-as.data.frame(t(Intermediate))
 indx<-sapply(Intermediate,is.factor)
 Intermediate[indx]<-lapply(Intermediate[indx],function(x) as.numeric(as.character(x)))
 Intermediate_Richness<-rowSums(Intermediate!=0)
-Intermediate_exShan<-exp(diversity(Intermediate,index="shannon"))
+Intermediate_exShan<-exp(vegan::diversity(Intermediate,index="shannon"))
 High<-subset(DataT,Groups=="High")
 High$Groups=NULL
 High<-as.data.frame(t(High))
 indx<-sapply(High,is.factor)
 High[indx]<-lapply(High[indx],function(x) as.numeric(as.character(x)))
 High_Richness<-rowSums(High!=0)
-High_exShan<-exp(diversity(High,index="shannon"))
+High_exShan<-exp(vegan::diversity(High,index="shannon"))
 Richness<-rowSums(Data!=0)
-exShan<-exp(diversity(Data,index="shannon"))
+exShan<-exp(vegan::diversity(Data,index="shannon"))
 df<-as.data.frame(cbind(Plantation,"Richness"=Richness,"Low_Richness"=Low_Richness,"Intermediate_Richness"=Intermediate_Richness,"High_Richness"=High_Richness,
                         "exShannon"=exShan,"Low_exShan"=Low_exShan,"Intermediate_exShan"=Intermediate_exShan,"High_exShan"=High_exShan,df))
 rm(DataT,Richness,exShan,Low_Richness,Low_exShan,Intermediate_Richness,
@@ -2433,10 +2543,10 @@ confint(Model_Intermediate_exShannon_Ave)
 summary(Model_Intermediate_exShannon_Ave)
 rm(Model_Intermediate_exShannon_Dredge,Model_Intermediate_exShannon_Subset,Model_Intermediate_exShannon,Model_Intermediate_exShannon_Ave)
 # Plot
-ggplot(data=df,aes(x=Elv,y=Intermediate_exShan))+
+ggplot(data=df,aes(x=Fire,y=Intermediate_exShan))+
   geom_point()+
   geom_smooth(method="lm",colour="black")+
-  labs(y="Intermediate conservation value Shannon diversity\n",x="\nElevation (m)")+
+  labs(y="Intermediate conservation value Shannon diversity\n",x="\nFire (m)")+
   theme(axis.title=element_text(size=14),
         axis.text=element_text(size=13,colour="black"),
         axis.ticks=element_line(size=0.8,colour="black"),
